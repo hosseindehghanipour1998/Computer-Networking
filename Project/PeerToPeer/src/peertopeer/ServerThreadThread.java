@@ -9,7 +9,7 @@ public class ServerThreadThread extends Thread {
     private ServerThread serverThread;
     private Socket socket;
     private PrintWriter printWriter;
-    public String socketPort = "default";
+
 
     public ServerThreadThread(Socket socket,ServerThread serverThread){
         this.serverThread = serverThread;

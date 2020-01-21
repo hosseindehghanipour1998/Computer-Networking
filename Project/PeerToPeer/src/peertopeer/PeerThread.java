@@ -1,7 +1,5 @@
 package peertopeer;
 
-import javax.json.Json;
-import javax.json.JsonObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,13 +17,10 @@ public class PeerThread extends Thread  {
         boolean connected = true;
         while (connected){
             try{
-                //JsonObject jsonObject = Json.createReader(bufferedReader).readObject();
-                String latestMessage = bufferedReader.readLine().toString();
-                String username = null ;
-                String receivedMessage = null ;
+                String latestMessage = bufferedReader.readLine();
                 if ( latestMessage.equals("") == false){
                      String[] messageElements = latestMessage.split("\\|");
-                    System.out.println("[" + messageElements[1] + "][" + messageElements[2] + "]");
+                    System.out.println("[" + messageElements[1] + "][" + messageElements[2] + "] -> peerThread");
                 }
             } catch (Exception e){
                 connected = false;

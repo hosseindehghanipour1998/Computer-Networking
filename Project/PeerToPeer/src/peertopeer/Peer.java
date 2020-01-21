@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Peer {
 
     public static ArrayList<Peer> allPeers = new ArrayList<>() ;
-
+    public ArrayList<Peer> followings = new ArrayList<>() ;
     public static void main(String[] args) throws Exception {
         // Input Reader Like Scanner :
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));

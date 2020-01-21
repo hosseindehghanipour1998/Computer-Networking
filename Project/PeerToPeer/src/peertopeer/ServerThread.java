@@ -32,7 +32,6 @@ public class ServerThread extends Thread  {
             //serverThreadThreads.forEach(t->t.getPrintWriter().println(message));
             for(ServerThreadThread stt: serverThreadThreads ){
                 stt.getPrintWriter().println(sendingMessage.printMessage());
-                System.out.println(stt.socketPort);
             }
         }catch (Exception e){e.printStackTrace();
             System.out.println("In ServerThread Excpetion");}
