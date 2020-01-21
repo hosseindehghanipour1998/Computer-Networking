@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.net.Socket;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class Peer {
@@ -13,6 +15,7 @@ public class Peer {
     private String socketPort ;
     private String username;
     private String peerIPAddress ;
+    public Socket socket ;
     public static ArrayList<Peer> allPeers = new ArrayList<>() ;
 
     public ArrayList<Peer> followingsPeers = new ArrayList<>() ;
@@ -33,7 +36,36 @@ public class Peer {
         return false ;
     }
 
+    private void upgradeFollowings(String currentNodePortNo){
+        ArrayList<Peer> currentPeerFollowers = getThisPeersFollowers(currentNodePortNo);
+        ArrayList<Peer> currentPeerFollowings = getThisPeersFollowings(currentNodePortNo);
+        for ( Peer p : currentPeerFollowers ){
 
+        }
+    }
+
+    private ArrayList<Peer>getThisPeersFollowers(String currentPeerPortNo){
+        ArrayList<Peer> al = new ArrayList<>() ;
+        for ( Peer p : Peer.allPeers ){
+            for ( Peer following : p.followingsPeers ){
+                if ( following.socketPort.equals(currentPeerPortNo)){
+                    al.add(p);
+                    break;
+                }
+            }
+        }
+        return al ;
+    }
+
+    private ArrayList<Peer> getThisPeersFollowings(String currentPeerPort){
+        ArrayList<Peer> al = new ArrayList<>() ;
+        for( Peer p : Peer.allPeers){
+            if(p.socketPort.equals(currentPeerPort)){
+                return p.followingsPeers ;
+            }
+        }
+        return null ;
+    }
 
 
     // This functions updates the followings of this peer -> whom this peer trusts.
@@ -54,8 +86,9 @@ public class Peer {
                     if ( socketExists(socketPortNumber) == false ){
                         // Socket ( IP Address , portNo )
                         socket = new Socket(socketIpAddress,Integer.valueOf(socketPortNumber));// for each following add a socket
+
                         addTheFollowingToDatabase(socketPortNumber , socketIpAddress);
-                        PeerThread newFollowingThread = new PeerThread(socket) ; //  we create a thread for each following
+                        PeerThread newFollowingThread = new PeerThread(socket , this) ; //  we create a thread for each following
                         this.followingPeersThreds.add(newFollowingThread);
                         newFollowingThread.start(); // start listening on the following's actions
                         //upgradeThisPeersFollowersFollowings(this.socketPort);
@@ -131,6 +164,7 @@ public class Peer {
         // Update this peers FOLLOWINGS
         this.updateFollowings(bufferedReader,socketPort, peerMailMan);
         this.socketPort = socketPort ;
+        this.socket = new Socket("localhost",Integer.valueOf(socketPort));
         this.username = username ;
         Peer.allPeers.add(this);
 
