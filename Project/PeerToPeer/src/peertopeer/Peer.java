@@ -1,6 +1,7 @@
 package peertopeer;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.Socket;
@@ -11,6 +12,7 @@ public class Peer {
     private int id ;
     private String socketPort ;
     private String username;
+    private String peerIPAddress ;
     public static ArrayList<Peer> allPeers = new ArrayList<>() ;
 
     public ArrayList<Peer> followingsPeers = new ArrayList<>() ;
@@ -24,13 +26,15 @@ public class Peer {
 
     public Boolean socketExists(String socketPort){
         for( PeerThread pt : followingPeersThreds){
-            System.out.println(pt.sniffingSocket + "// " + socketPort);
-            if ( pt.sniffingSocket.equals(socketPort)){
+            if ( socketPort.equals(String.valueOf(pt.socket.getPort())) ){
                 return  true ;
             }
         }
         return false ;
     }
+
+
+
 
     // This functions updates the followings of this peer -> whom this peer trusts.
     public void updateFollowings(BufferedReader bufferedReader , String username , PeerMailMan peerMailMan) throws Exception{
@@ -50,10 +54,11 @@ public class Peer {
                     if ( socketExists(socketPortNumber) == false ){
                         // Socket ( IP Address , portNo )
                         socket = new Socket(socketIpAddress,Integer.valueOf(socketPortNumber));// for each following add a socket
-                        addTheFollowingToDatabase(socketPortNumber);
-                        PeerThread newFollowingThread = new PeerThread(socket , socketPortNumber) ; //  we create a thread for each following
+                        addTheFollowingToDatabase(socketPortNumber , socketIpAddress);
+                        PeerThread newFollowingThread = new PeerThread(socket) ; //  we create a thread for each following
                         this.followingPeersThreds.add(newFollowingThread);
                         newFollowingThread.start(); // start listening on the following's actions
+                        //upgradeThisPeersFollowersFollowings(this.socketPort);
 
                     }
 
@@ -112,9 +117,10 @@ public class Peer {
 
     }
 
-    private void addTheFollowingToDatabase(String socketPort){
+    private void addTheFollowingToDatabase(String socketPort , String ipAddress){
         for(Peer p : Peer.allPeers){
             if( p.getSocketPort().equals(socketPort)){
+                p.peerIPAddress = peerIPAddress ;
                 this.getFollowingsPeers().add(p);
             }
         }
