@@ -10,10 +10,11 @@ public class ServerThreadThread extends Thread {
     private Socket socket;
     private PrintWriter printWriter;
     public String socketPort = "default";
+
     public ServerThreadThread(Socket socket,ServerThread serverThread){
         this.serverThread = serverThread;
         this.socket = socket;
-        socketPort = socket.toString();
+        //#socketPort = socket.toString();
         serverThread.getServerThreadThreads().add(this);
     }
 

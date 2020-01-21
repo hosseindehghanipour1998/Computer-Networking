@@ -8,6 +8,8 @@ import java.util.Set;
 public class ServerThread extends Thread  {
     private ServerSocket serverSocket;
     public static  Set<ServerThreadThread> serverThreadThreads = new HashSet<ServerThreadThread>();
+
+    //Constructor :
     public ServerThread(String portNumb) throws IOException{
         serverSocket = new ServerSocket(Integer.valueOf(portNumb));
     }
@@ -16,6 +18,7 @@ public class ServerThread extends Thread  {
     public void run() {
         try{
             while (true){
+                // accept everything that is being sent to this server :
                 ServerThreadThread serverThreadThread = new ServerThreadThread(serverSocket.accept() , this);
                 serverThreadThread.start();
             }

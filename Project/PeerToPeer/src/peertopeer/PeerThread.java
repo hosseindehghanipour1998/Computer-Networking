@@ -16,8 +16,8 @@ public class PeerThread extends Thread  {
 
     @Override
     public void run() {
-        boolean flag = true;
-        while (flag){
+        boolean connected = true;
+        while (connected){
             try{
                 //JsonObject jsonObject = Json.createReader(bufferedReader).readObject();
                 String latestMessage = bufferedReader.readLine().toString();
@@ -32,7 +32,7 @@ public class PeerThread extends Thread  {
                 if(username != null)
                     System.out.println("[" + username + "]: " + receiverMessage);
             } catch (Exception e){
-                flag = false;
+                connected = false;
                 interrupt();
                 System.out.println("In PeerThread Excpetion");
                 e.printStackTrace();
