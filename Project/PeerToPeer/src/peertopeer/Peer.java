@@ -1,14 +1,10 @@
 package peertopeer;
 
-import javax.json.Json;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Peer {
 
@@ -67,8 +63,8 @@ public class Peer {
                 }else{
                     //When we want to send message to other peers that follow us.
                     StringWriter stringWriter = new StringWriter();
-                    String messageStructure = username + ":" + message ;
-                    serverThread.sendMessage(messageStructure);
+                    Message newMessageToSend = new Message(message,username) ;
+                    serverThread.sendMessage(newMessageToSend);
                 }
 
             }

@@ -22,15 +22,11 @@ public class PeerThread extends Thread  {
                 //JsonObject jsonObject = Json.createReader(bufferedReader).readObject();
                 String latestMessage = bufferedReader.readLine().toString();
                 String username = null ;
-                String receiverMessage = null ;
-                if ( latestMessage != ""){
-                     username = latestMessage.split(":")[0] ;
-                    System.out.println("Last Message : " + latestMessage);
-                     receiverMessage = latestMessage.split(":")[1];
+                String receivedMessage = null ;
+                if ( latestMessage.equals("") == false){
+                     String[] messageElements = latestMessage.split("\\|");
+                    System.out.println("[" + messageElements[1] + "][" + messageElements[2] + "]");
                 }
-
-                if(username != null)
-                    System.out.println("[" + username + "]: " + receiverMessage);
             } catch (Exception e){
                 connected = false;
                 interrupt();

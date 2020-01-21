@@ -27,14 +27,13 @@ public class ServerThread extends Thread  {
         }
     }
 
-    void sendMessage(String message){
+    void sendMessage(Message sendingMessage){
         try {
             //serverThreadThreads.forEach(t->t.getPrintWriter().println(message));
             for(ServerThreadThread stt: serverThreadThreads ){
-                stt.getPrintWriter().println(message);
+                stt.getPrintWriter().println(sendingMessage.printMessage());
                 System.out.println(stt.socketPort);
             }
-            System.out.println("Server Received : [" + message + "]");
         }catch (Exception e){e.printStackTrace();
             System.out.println("In ServerThread Excpetion");}
     }

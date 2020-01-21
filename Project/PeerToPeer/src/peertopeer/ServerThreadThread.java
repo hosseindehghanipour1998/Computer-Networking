@@ -25,7 +25,17 @@ public class ServerThreadThread extends Thread {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             this.printWriter = new PrintWriter(socket.getOutputStream(),true);
 
-            while (true) serverThread.sendMessage(bufferedReader.readLine());
+            while (true) {
+                String sendingMsg = bufferedReader.readLine() ;
+                String tempUserName , tempMsg ;
+                int tempId ;
+                String[] msgParts = sendingMsg.split("|");
+                tempId = Integer.valueOf(msgParts[0]);
+                tempUserName = msgParts[1] ;
+                tempMsg = msgParts[2] ;
+                Message newMessage = new Message(tempMsg , tempUserName , tempId) ;
+                serverThread.sendMessage(newMessage);
+            }
         }catch (Exception e){
             serverThread.getServerThreadThreads().remove(this);
             e.printStackTrace();
