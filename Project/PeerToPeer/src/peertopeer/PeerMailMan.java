@@ -5,13 +5,14 @@ import java.net.ServerSocket;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ServerThread extends Thread  {
+public class PeerMailMan extends Thread  {
     private ServerSocket serverSocket;
-    public static  Set<ServerThreadThread> serverThreadThreads = new HashSet<ServerThreadThread>();
+    public Set<MailManWorkers> allHiredWorkers = new HashSet<MailManWorkers>();
 
     //Constructor :
-    public ServerThread(String portNumb) throws IOException{
-        serverSocket = new ServerSocket(Integer.valueOf(portNumb));
+    public PeerMailMan(String peerPortNo) throws IOException{
+        // set the thread to  listen on a specific port.
+        serverSocket = new ServerSocket(Integer.valueOf(peerPortNo));
     }
 
     @Override
@@ -19,8 +20,8 @@ public class ServerThread extends Thread  {
         try{
             while (true){
                 // accept everything that is being sent to this server :
-                ServerThreadThread serverThreadThread = new ServerThreadThread(serverSocket.accept() , this);
-                serverThreadThread.start();
+                MailManWorkers mailManWorkers = new MailManWorkers(serverSocket.accept() , this);// server adds a thread to sniff in that peer.
+                mailManWorkers.start();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,14 +31,14 @@ public class ServerThread extends Thread  {
     void sendMessage(Message sendingMessage){
         try {
             //serverThreadThreads.forEach(t->t.getPrintWriter().println(message));
-            for(ServerThreadThread stt: serverThreadThreads ){
+            for(MailManWorkers stt: allHiredWorkers){
                 stt.getPrintWriter().println(sendingMessage.printMessage());
             }
         }catch (Exception e){e.printStackTrace();
             System.out.println("In ServerThread Excpetion");}
     }
 
-    public Set<ServerThreadThread> getServerThreadThreads() {
-        return serverThreadThreads;
+    public Set<MailManWorkers> getAllServerThreads() {
+        return allHiredWorkers;
     }
 }
