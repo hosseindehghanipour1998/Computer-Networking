@@ -81,17 +81,7 @@ public class Node {
     }
 
 
-    public ArrayList<Node> findTheFollowers(String thisNodePort){
-        ArrayList<Node> followers = new ArrayList<>();
-        for ( Node node : allNodes ){
-            for ( Following following : node.getFollowings() ){
-                if ( following.getNode().getPortNo().equals(thisNodePort)){
-                    followers.add(node);
-                }
-            }
-        }
-        return followers ;
-    }
+
 
     public void follow(String IPAddress,String portNo , Node boss) throws IOException {
         Socket socket = new Socket(IPAddress , Integer.valueOf(portNo)) ;
