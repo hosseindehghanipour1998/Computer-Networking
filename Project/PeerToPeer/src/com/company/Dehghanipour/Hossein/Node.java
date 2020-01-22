@@ -10,7 +10,7 @@ public class Node {
     private static int idCounter = 0;
     private int nodeId;
     private String username;
-    private ArrayList<Following> followings = new ArrayList<>();
+    public  ArrayList<Node> followings = new ArrayList<>();
     private ArrayList<Message> receivedMessages = new ArrayList<>();
 
     private String IPAddress = "localhost";
@@ -60,7 +60,7 @@ public class Node {
                 Socket socket = null;
 
                 try {
-                    socket = new Socket("localhost", Integer.valueOf(address[1]));
+                    socket = new Socket(address[0], Integer.valueOf(address[1]));
                     ListenerThread newThread = new ListenerThread(socket, this);
 
                 }
@@ -139,13 +139,6 @@ public class Node {
         this.username = username;
     }
 
-    public ArrayList<Following> getFollowings() {
-        return followings;
-    }
-
-    public void setFollowings(ArrayList<Following> followings) {
-        this.followings = followings;
-    }
 
     public ArrayList<Message> getReceivedMessages() {
         return receivedMessages;

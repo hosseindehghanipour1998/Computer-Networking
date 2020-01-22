@@ -18,9 +18,8 @@ public class Server extends Thread {
 
 
 
-    public Server(String port , int clientId) throws IOException {
+    public Server(String port) throws IOException {
         this.portNo = port ;
-        System.out.println("Test|PortNO |NodeConstructor : " + port);
         server = new ServerSocket(Integer.valueOf(port)) ;
         allServers.add(this);
         this.start();
