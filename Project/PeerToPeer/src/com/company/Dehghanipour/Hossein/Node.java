@@ -44,9 +44,7 @@ public class Node {
     }
 
     public void printMsg(String msg) {
-        System.out.println("BossNode -> Call From Listener Thread : " + msg);
-        //System.out.println(msg.format());
-        //receivedMessages.add(msg);
+        System.out.println(msg);
     }
 
     public void updateFollowings(BufferedReader bufferedReader) throws Exception {
@@ -197,9 +195,5 @@ public class Node {
         this.portNo = portNo;
     }
 
-    void print(ArrayList<Node> al){
-        for (Node n : al){
-            System.out.println(n.username);
-        }
-    }
+
 }
