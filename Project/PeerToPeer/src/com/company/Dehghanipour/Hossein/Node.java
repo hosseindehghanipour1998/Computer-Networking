@@ -81,16 +81,6 @@ public class Node {
     }
 
 
-
-
-    public void follow(String IPAddress,String portNo , Node boss) throws IOException {
-        Socket socket = new Socket(IPAddress , Integer.valueOf(portNo)) ;
-        ListenerThread newThread = new ListenerThread(socket, boss);
-        Following newFollowing = new Following(findTheNode(portNo) , newThread);
-        boss.followings.add(newFollowing);
-
-    }
-
     public void communicate(BufferedReader bufferedReader , String username){
         try{
             System.out.println("> you can now communicate (e to exit , c to change)");
