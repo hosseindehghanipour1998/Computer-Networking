@@ -65,21 +65,6 @@ public class Node {
                     socket = new Socket("localhost", Integer.valueOf(address[1]));
                     ListenerThread newThread = new ListenerThread(socket, this);
 
-                    //Add the target to our followings
-                    Following newFollowing = new Following(findTheNode(address[0]) , newThread);
-                    this.followings.add(newFollowing);
-
-                    /*
-                    //Add the target to the followings of our followers
-                    ArrayList<Node> followers = findTheFollowers(this.portNo);
-                    System.out.println(followers);
-
-                    for(Node node : followers){
-                        follow(address[0] , address[1] , node) ;
-                    }
-                    */
-
-
                 }
                 catch(Exception e){
                     if (socket != null) socket.close(); // if the wanted following did not exist.
@@ -95,16 +80,6 @@ public class Node {
         communicate(bufferedReader,username);
     }
 
-    private Node findTheNode(String portNo){
-        //System.out.println(allNodes.size());
-        //print(allNodes);
-        for(Node node : Node.allNodes){
-            if(node.getPortNo().equals(portNo)){
-                return node;
-            }
-        }
-        return null ;
-    }
 
     public ArrayList<Node> findTheFollowers(String thisNodePort){
         ArrayList<Node> followers = new ArrayList<>();
