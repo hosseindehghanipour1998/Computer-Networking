@@ -33,6 +33,8 @@ public class ListenerThread extends Thread{
                     //String[] messageElements = latestMessage.split("\\|");
                     bossNode.printMsg(latestMessage);
                     System.out.println(latestMessage);
+                    Message m = new Message(latestMessage , "Shit");
+                    bossNode.getServer().sendMessage(m);
                 }
 
             }

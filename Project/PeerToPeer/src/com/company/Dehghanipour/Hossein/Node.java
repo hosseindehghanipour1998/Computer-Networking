@@ -24,7 +24,7 @@ public class Node {
         this.portNo = portNo ;
         this.username = username;
         this.nodeId = idCounter++;
-        this.server = new Server(portNo, this.nodeId);
+        this.server = new Server(portNo);
         allNodes.add(this);
     }
 
