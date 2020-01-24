@@ -78,10 +78,15 @@ public class Node {
         communicate(bufferedReader,username);
     }
 
+    public void printMessages(ArrayList<Message> al){
+        for(Message a : al){
+            System.out.println(a.getMessage());
+        }
+    }
 
     public void communicate(BufferedReader bufferedReader , String username){
         try{
-            System.out.println("> you can now communicate (e to exit , c to change)");
+            System.out.println("> you can now communicate (e to exit , c to change , q to query)");
             boolean connected = true;
             while (true){
                 String message = bufferedReader.readLine();
@@ -93,6 +98,13 @@ public class Node {
                 else if(message.equals("c")){
                     updateFollowings(bufferedReader);
                 }
+                else if ( message.equals("q") == true){
+                    System.out.println("Search the Word: ");
+                    message = bufferedReader.readLine();
+                    printMessages(ListenerThread.query(message));
+
+                }
+
                 else{
                     Message newMessageToSend = new Message(message,username) ;
                     server.sendMessage(newMessageToSend);

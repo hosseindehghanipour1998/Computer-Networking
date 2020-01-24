@@ -38,6 +38,23 @@ public class ListenerThread extends Thread{
         return false ;
     }
 
+    public static ArrayList<Message> query(String findStr){
+        ArrayList<Message> found = new ArrayList<>();
+        for( Message msg : Node.sendMessages ){
+            if ( msg.getMessage().contains(findStr)){
+                found.add(msg);
+            }
+        }
+
+        for(Message msg : Node.receivedMessages ){
+            if ( msg.getMessage().contains(findStr)){
+                found.add(msg);
+            }
+        }
+
+        return found ;
+    }
+
     @Override
     public void run() {
         super.run();
@@ -52,7 +69,7 @@ public class ListenerThread extends Thread{
                         System.out.println("["+messageElements[1]+"]:" + messageElements[2]);
                         Node.receivedMessages.add(m);
                         bossNode.getServer().sendMessage(m);
-                        Node.sendMessages.add(m);
+                       // Node.sendMessages.add(m);
                     }
 
                 }
