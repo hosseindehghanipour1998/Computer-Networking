@@ -24,13 +24,14 @@ public class Message {
         this.senderUsername = username ;
     }
 
-    public Message(String messageBody , int id ){
+    public Message(String messageBody , int id , String username){
         this.msgId = id ;
         this.message = messageBody;
+        this.senderUsername = username ;
     }
 
     public String format(){
-        return ( this.msgId + "|" + this.senderUsername + "|" + this.senderPort + "|" + this.message ) ;
+        return ( this.msgId + "|" + this.senderUsername + "|" + this.message ) ;
     }
 
 

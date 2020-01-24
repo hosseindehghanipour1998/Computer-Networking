@@ -26,11 +26,11 @@ public class ServerThread extends Thread {
     @Override
     public void run() {
         try{
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+            //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             this.printWriter = new PrintWriter(socket.getOutputStream(),true);
 
-            while (true) {
-                String sendingMsg = bufferedReader.readLine() ;
+           // while (true) {
+                //String sendingMsg = bufferedReader.readLine() ;
                 /*
                 String tempUserName , tempMsg ;
                 System.out.println(sendingMsg);
@@ -41,11 +41,11 @@ public class ServerThread extends Thread {
                 tempMsg = msgParts[2] ;
                 */
 
-                Message newMessage = new Message("haaaaa" , "Khaaaar") ;
-                boss.sendMessage(newMessage);
+                //Message newMessage = new Message("haaaaa" , "Khaaaar") ;
+                //boss.sendMessage(newMessage);
                 //Node.sendMessages.add(newMessage);
 
-            }
+           // }
         }
         catch (Exception e){
             boss.getThisServerThreads().remove(this);

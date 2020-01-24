@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Node {
     public static ArrayList<Node> allNodes = new ArrayList<>();
-
     private static int idCounter = 0;
     private int nodeId;
     private String username;
@@ -95,10 +94,9 @@ public class Node {
                     updateFollowings(bufferedReader);
                 }
                 else{
-
                     Message newMessageToSend = new Message(message,username) ;
                     server.sendMessage(newMessageToSend);
-                    continue;
+
                 }
             }
             System.exit(0);

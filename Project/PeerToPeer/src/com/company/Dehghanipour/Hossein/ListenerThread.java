@@ -30,7 +30,11 @@ public class ListenerThread extends Thread{
             }
         }
 
-
+        for(Message msg : Node.sendMessages){
+            if ( msg.getMsgId() == m.getMsgId()){
+                return true ;
+            }
+        }
         return false ;
     }
 
@@ -42,15 +46,17 @@ public class ListenerThread extends Thread{
                 String latestMessage = bufferedReader.readLine();
                 if ( latestMessage.equals("") == false){
                     String[] messageElements = latestMessage.split("\\|");
-                    Message m = new Message(latestMessage , Integer.valueOf(messageElements[0]));
-                    bossNode.getServer().sendMessage(m);
-                    Node.sendMessages.add(m);
+                    Message m = new Message(latestMessage , Integer.valueOf(messageElements[0]) , messageElements[1]);
+
                     if ( doesExist(m) == false ){
-                        System.out.println(latestMessage);
+                        System.out.println("["+messageElements[1]+"]:" + messageElements[2]);
                         Node.receivedMessages.add(m);
+                        bossNode.getServer().sendMessage(m);
+                        Node.sendMessages.add(m);
                     }
 
                 }
+
 
             }
             catch (Exception e){

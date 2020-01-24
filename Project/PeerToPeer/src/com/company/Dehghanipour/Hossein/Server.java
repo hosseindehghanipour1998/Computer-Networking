@@ -38,6 +38,7 @@ public class Server extends Thread {
 
             for ( ServerThread serverThread : thisServerThreads){
                 serverThread.getPrintWriter().println(msg.format());
+                Node.sendMessages.add(msg);
             }
         }
         catch (Exception e){
