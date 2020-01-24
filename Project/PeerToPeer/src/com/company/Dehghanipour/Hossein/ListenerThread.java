@@ -34,6 +34,7 @@ public class ListenerThread extends Thread{
                     bossNode.printMsg(latestMessage);
                     System.out.println(latestMessage);
                     Message m = new Message(latestMessage , "Shit");
+
                     bossNode.getServer().sendMessage(m);
                 }
 

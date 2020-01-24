@@ -11,7 +11,7 @@ public class Node {
     private int nodeId;
     private String username;
     public  ArrayList<Node> followings = new ArrayList<>();
-    private ArrayList<Message> receivedMessages = new ArrayList<>();
+    public static ArrayList<Message> receivedMessages = new ArrayList<>();
 
     private String IPAddress = "localhost";
     private DataInputStream input = null;
