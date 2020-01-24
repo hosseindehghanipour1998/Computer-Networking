@@ -23,6 +23,17 @@ public class ListenerThread extends Thread{
         allListenerThreads.add(this);
     }
 
+    boolean doesExist(Message m){
+        for(Message msg : Node.receivedMessages ){
+            if ( msg.getMsgId() == m.getMsgId() ){
+                return true ;
+            }
+        }
+
+
+        return false ;
+    }
+
     @Override
     public void run() {
         super.run();
@@ -30,12 +41,15 @@ public class ListenerThread extends Thread{
             try{
                 String latestMessage = bufferedReader.readLine();
                 if ( latestMessage.equals("") == false){
-                    //String[] messageElements = latestMessage.split("\\|");
-                    bossNode.printMsg(latestMessage);
-                    System.out.println(latestMessage);
-                    Message m = new Message(latestMessage , "Shit");
-
+                    String[] messageElements = latestMessage.split("\\|");
+                    Message m = new Message(latestMessage , Integer.valueOf(messageElements[0]));
                     bossNode.getServer().sendMessage(m);
+                    Node.sendMessages.add(m);
+                    if ( doesExist(m) == false ){
+                        System.out.println(latestMessage);
+                        Node.receivedMessages.add(m);
+                    }
+
                 }
 
             }

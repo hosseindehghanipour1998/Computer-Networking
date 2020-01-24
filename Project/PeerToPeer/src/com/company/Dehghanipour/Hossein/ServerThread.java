@@ -41,8 +41,9 @@ public class ServerThread extends Thread {
                 tempMsg = msgParts[2] ;
                 */
 
-                Message newMessage = new Message("Kiiiir" , "Khaaaar") ;
+                Message newMessage = new Message("haaaaa" , "Khaaaar") ;
                 boss.sendMessage(newMessage);
+                //Node.sendMessages.add(newMessage);
 
             }
         }

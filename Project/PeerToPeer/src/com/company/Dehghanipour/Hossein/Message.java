@@ -24,6 +24,11 @@ public class Message {
         this.senderUsername = username ;
     }
 
+    public Message(String messageBody , int id ){
+        this.msgId = id ;
+        this.message = messageBody;
+    }
+
     public String format(){
         return ( this.msgId + "|" + this.senderUsername + "|" + this.senderPort + "|" + this.message ) ;
     }
