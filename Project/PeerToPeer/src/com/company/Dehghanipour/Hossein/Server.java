@@ -38,6 +38,8 @@ public class Server extends Thread {
 
             for ( ServerThread serverThread : thisServerThreads){
                 serverThread.getPrintWriter().println(msg.format());
+                String prev = Main.logs.getText();
+                Main.logs.setText(prev + "\n" + msg.getMessage());
                 Node.sendMessages.add(msg);
             }
         }

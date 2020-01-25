@@ -24,36 +24,38 @@ public class Node {
         this.portNo = portNo ;
         this.username = username;
         this.nodeId = idCounter++;
+        System.out.println(portNo);
         this.server = new Server(portNo);
         allNodes.add(this);
     }
 
-    public static void createNode() throws IOException {
+    public static Node createNode(String username, String portNo) throws IOException {
         // Input Reader Like Scanner :
+        Node n = null;
         try{
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("> enter username & port # for this peer:");
-            String[] setupValues = bufferedReader.readLine().split(" ");
-            Node n = new Node(setupValues[0], setupValues[1]);
-            n.updateFollowings(bufferedReader);
+
+            n = new Node(username, portNo);
+            System.out.println("created");
+            //n.updateFollowings(bufferedReader);
         }
         catch (Exception e){
             e.printStackTrace();
         }
 
+        return n;
     }
 
     public void printMsg(String msg) {
         System.out.println(msg);
     }
 
-    public void updateFollowings(BufferedReader bufferedReader) throws Exception {
-        System.out.println("> enter (space separated) hostname:port#");
-        System.out.println(" peers to receive messages from (s to skip)");
-        String input = bufferedReader.readLine();
-        String[] inputValues = input.split(" ");
+    public  void updateFollowings(String followings) throws Exception {
+        //System.out.println("> enter (space separated) hostname:port#");
+        //System.out.println(" peers to receive messages from (s to skip)");
+        //String input = bufferedReader.readLine();
+        String[] inputValues = followings.split(" ");
 
-        if (input.equals("s") == false){
+        //if (input.equals("s") == false){
             //  s stands for Skip -> if we had Skip it means there are followings for this peer.
             for (int i = 0; i < inputValues.length; i++) {
                 String[] address = inputValues[i].split(":");
@@ -69,13 +71,10 @@ public class Node {
                     else System.out.println("invalid input , skipping to next step!");
                 }
             }
-        }
+        //}
+        System.out.println("u followed sb");
 
-        else {
-            System.out.println("Stack is empty.");
-        }
-
-        communicate(bufferedReader,username);
+        //communicate(bufferedReader,username);
     }
 
     public void printMessages(ArrayList<Message> al){
@@ -84,34 +83,34 @@ public class Node {
         }
     }
 
-    public void communicate(BufferedReader bufferedReader , String username){
+    public void communicate(String message , String username){
         try{
-            System.out.println("> you can now communicate (e to exit , c to change , q to query)");
-            boolean connected = true;
-            while (true){
-                String message = bufferedReader.readLine();
-                if (message.equals("e") == true ){
+            //System.out.println("> you can now communicate (e to exit , c to change , q to query)");
+            //boolean connected = true;
+            //while (true){
+                //String message = bufferedReader.readLine();
+                //if (message.equals("e") == true ){
                     // when we want to get disconnected.
-                    connected = false ;
-                    break;
-                }
-                else if(message.equals("c")){
-                    updateFollowings(bufferedReader);
-                }
-                else if ( message.equals("q") == true){
-                    System.out.println("Search the Word: ");
-                    message = bufferedReader.readLine();
-                    printMessages(ListenerThread.query(message));
+                    //connected = false ;
+                    //break;
+                //}
+                //if(message.equals("c")){
+                //    updateFollowings("jjj");
+               // }
+                //else if ( message.equals("q") == true){
+                //    System.out.println("Search the Word: ");
+                  //  message = bufferedReader.readLine();
+                  //  printMessages(ListenerThread.query(message));
 
-                }
+               // }
 
-                else{
+                //else{
                     Message newMessageToSend = new Message(message,username) ;
                     server.sendMessage(newMessageToSend);
 
-                }
-            }
-            System.exit(0);
+               // }
+            //}
+            //System.exit(0);
         }catch (Exception e){
             e.printStackTrace();
             System.out.println("In Peer Exception");

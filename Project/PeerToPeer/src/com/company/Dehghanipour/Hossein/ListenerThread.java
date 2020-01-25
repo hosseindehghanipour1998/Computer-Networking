@@ -1,5 +1,7 @@
 package com.company.Dehghanipour.Hossein;
 
+import javafx.application.Platform;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -67,8 +69,19 @@ public class ListenerThread extends Thread{
 
                     if ( doesExist(m) == false ){
                         System.out.println("["+messageElements[1]+"]:" + messageElements[2]);
-                        Node.receivedMessages.add(m);
-                        bossNode.getServer().sendMessage(m);
+
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Main.logs.setText(Main.logs.getText()+'\n'+"["+messageElements[1]+"]:" + messageElements[2]);
+                                if ( Main.logs.getText().length() > 50 ){
+                                    Main.logs.setText("Cleared!");
+                                }
+                                Node.receivedMessages.add(m);
+                                bossNode.getServer().sendMessage(m);
+                            }
+                        });
+
                        // Node.sendMessages.add(m);
                     }
 
