@@ -12,7 +12,10 @@ This project is a simple peer-to-peer messenger implemented by Java as socket pr
 - This course was tought by Dr.Mohammadreza Mousavi at Shiraz University.
 
 - More about Dr.Mousavi : [Google Scholar](https://scholar.google.com/citations?user=sY3EbYsAAAAJ&hl=en) , [Shiraz University Homepage](http://shirazu.ac.ir/faculty/home/smmosavi/en)
- 
+
+## Installing JavaFX
+You might face some problems with JavaFx while running the project. An installation guide to JavaFx has been added to the repository from [pragmaticways.com](https://pragmaticways.com/how-to-add-javafx-to-eclipse-the-easy-way/) website in the PDF format.
+
 ## License
 This repository is released under [MIT License](https://opensource.org/licenses/MIT). To put it in a nutshell, This means that you can use the source codes in any opensource projects or contributions. Attribution is not mandatory but appreciated.
 
